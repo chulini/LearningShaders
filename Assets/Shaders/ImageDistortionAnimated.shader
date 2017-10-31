@@ -1,8 +1,5 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Custom/ImageDistortion" {
+﻿
+Shader "Custom/ImageDistortionAnimated" {
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
@@ -55,7 +52,7 @@ Shader "Custom/ImageDistortion" {
 
 			float4 frag(v2f i) : SV_Target
 			{
-				float2 disp = tex2D(_DisplaceTex, i.uv).xy;
+				float2 disp = tex2D(_DisplaceTex, float2(i.uv.x+sin(_Time.x+0.97834),i.uv.y+sin(_Time.x))).xy;
 				disp = ((disp * 2) - 1) * _Magnitude;
 
 				float4 col = tex2D(_MainTex, i.uv + disp);
